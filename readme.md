@@ -1,7 +1,7 @@
 # 存储桶改造
 
 <div align=center>
-<img src="https://www.helloimg.com/images/2022/11/11/ZfU1ST.png" width="200" height="200"/>
+<img src="https://www.helloimg.com/images/2022/11/11/ZfU1ST.png" width="500" height="200"/>
 </div>
 <br/>
 
