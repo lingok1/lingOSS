@@ -1,5 +1,8 @@
 # 存储桶改造
-![](https://ling11.oss-cn-hangzhou.aliyuncs.com/1668134864706.png)
+<div align=center>
+<img src="https://ling11.oss-cn-hangzhou.aliyuncs.com/1668135103363.png" width="200" height="200"/>
+
+<br/>
 
 书籍：《分布式对象存储原理架构及Go语言实现》
 
