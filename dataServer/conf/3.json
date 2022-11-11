@@ -1,0 +1,6 @@
+{
+	"RabbitmqAddr":"amqp://guest:guest@qkbyte.orginone.cn:5672",
+	"ListenAddr":"127.0.0.1",
+	 "ListenPort":"54323",
+     "Dir" : "/home/ling/go/src/Orginone/pkg/minio/objectData/3"
+}
