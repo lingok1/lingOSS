@@ -60,21 +60,19 @@ func (t *tempInfo) id() int {
 
 }
 
-var STORAGE_ROOT string = "/home/ling/go/src/Orginone/pkg/minio/objectData/"
-
+// commitTempObject 提交临时对象,os.Rename()将临时对象文件重命名为正式对象文件
 func commitTempObject(datFile string, tempinfo *tempInfo) {
 	log.Println("commitTempObject11111")
 	f, _ := os.Open(datFile)
 	d := url.PathEscape(utils.CalculateHash(f))
 	log.Println("d 1111111", d)
 	f.Close()
-	// os.Rename(datFile, os.Getenv("STORAGE_ROOT")+"/objects/"+tempinfo.Name+"."+d)
-	// os.Rename(datFile, STORAGE_ROOT+"/objects/"+tempinfo.Name+"."+d)
 	os.Rename(datFile, conf.Conf.Dir+"/objects/"+tempinfo.Name+"."+d)
 	locate.Add(tempinfo.hash(), tempinfo.id())
 
 }
 
+// put 接口服务数据校验一致，将该临时对象转正
 func put(w http.ResponseWriter, r *http.Request) {
 	log.Println("put 111111")
 	uuid := strings.Split(r.URL.EscapedPath(), "/")[2]
@@ -119,6 +117,7 @@ func put(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// patch 访问数据服务节点上的临时数据，http请求的正文会被写入该临时对象
 func patch(w http.ResponseWriter, r *http.Request) {
 	uuid := strings.Split(r.URL.EscapedPath(), "/")[2]
 	tempinfo, e := readFromFile(uuid)
@@ -138,6 +137,7 @@ func patch(w http.ResponseWriter, r *http.Request) {
 
 	}
 	defer f.Close()
+	// 写入分片数据
 	_, e = io.Copy(f, r.Body)
 	if e != nil {
 		log.Println(e)
@@ -182,6 +182,7 @@ type tempInfo struct {
 	Size int64
 }
 
+// post 数据服务节点创建临时对象，写入tempInfo信息
 func post(w http.ResponseWriter, r *http.Request) {
 	output, _ := exec.Command("uuidgen").Output()
 	uuid := strings.TrimSuffix(string(output), "\n")
@@ -219,6 +220,7 @@ func (t *tempInfo) writeToFile() error {
 
 }
 
+// del 接口服务数据校验不一致，删除该临时对象
 func del(w http.ResponseWriter, r *http.Request) {
 	uuid := strings.Split(r.URL.EscapedPath(), "/")[2]
 	infoFile := conf.Conf.Dir + "/temp/" + uuid

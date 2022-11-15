@@ -23,8 +23,10 @@ func main() {
 
 	url = conf.Conf.ListenAddr + ":" + conf.Conf.ListenPort
 	fmt.Println("run apiServer start...")
-	fmt.Println("ListenPort:6060")
+	fmt.Println("ListenServer:",conf.Conf.ListenAddr+":"+conf.Conf.ListenPort)
+
 	go heartbeat.ListenHeartbeat()
+	
 	http.HandleFunc("/OSS/", indexPage)
 	http.HandleFunc("/OSS/objects/", objects.Handler) 
 	http.HandleFunc("/OSS/locate/", locate.Handler)

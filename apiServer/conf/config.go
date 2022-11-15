@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-//全局配置变量
+// 全局配置变量
 var Conf *Config = &Config{}
 
 type Config struct {
@@ -21,6 +21,7 @@ func (conf *Config) Parse(confile string) {
 		panic(err)
 	} else {
 		f, err := os.Open(confile)
+		defer f.Close()
 		if err != nil {
 			panic(err)
 		}

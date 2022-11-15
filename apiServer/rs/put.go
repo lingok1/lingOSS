@@ -36,6 +36,7 @@ func NewRSPutStream(dataServers []string, hash string, size int64) (*RSPutStream
 func (s *RSPutStream) Commit(success bool) {
 	s.Flush()
 	for i := range s.writers {
+		//调用dataSetver http put方式
 		s.writers[i].(*objectstream.TempPutStream).Commit(success)
 
 	}

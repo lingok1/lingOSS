@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// StartHeartbeat 当前数据服务节点注册到数据服务集群
 func StartHeartbeat(url string) {
 	q := rabbitmq.New(conf.Conf.RabbitmqAddr)
 	defer q.Close()

@@ -61,7 +61,6 @@ func getFile(name string) string {
 	log.Println("getFile111")
 	log.Println("name: ", name)
 	files, _ := filepath.Glob(conf.Conf.Dir + "/objects/" + name + ".*")
-	// files, _ := filepath.Glob(conf.Conf.Dir + "/temp/" + name + ".*")
 	if len(files) != 1 {
 		return ""
 

@@ -44,26 +44,6 @@ func (d *decoder) Read(p []byte) (n int, err error) {
 
 }
 
-/*
-2022/11/04 17:16:01 dataServers2222 []
-2022/11/04 17:16:01 hash333 MBMxWHrPMsuOBaVYHkwScZQRyTRMQyiKp2oelpLZza8=
-2022/11/04 17:16:01 size4444 42
-2022/11/04 17:16:01 NewRSGetStream111111
-2022/11/04 17:16:01 readers111 [<nil> <nil> <nil> <nil> <nil> <nil>]
-2022/11/04 17:16:01 writers2222 [0xc000024bc0 0xc0001aefa0 0xc000024c00 0xc0001aefe0 0xc0001af000 0xc00031cd80]
-2022/11/04 17:16:01 stream &{0xc000352150}
-2022/11/04 17:16:01 if d.readers[i] == nil 1111111
-2022/11/04 17:16:01 if d.readers[i] == nil 1111111
-2022/11/04 17:16:01 if d.readers[i] == nil 1111111
-2022/11/04 17:16:01 if d.readers[i] == nil 1111111
-2022/11/04 17:16:01 if d.readers[i] == nil 1111111
-2022/11/04 17:16:01 if d.readers[i] == nil 1111111
-2022/11/04 17:16:01 getData len(shards)111 6
-2022/11/04 17:16:01 getData shards111 [[] [] [] [] [] []]
-2022/11/04 17:16:01 getData repairIds111 [0 1 2 3 4 5]
-2022/11/04 17:16:01 no shard data
-*/
-// TODO shards不能为空
 func (d *decoder) getData() error {
 	if d.total == d.size {
 		return io.EOF

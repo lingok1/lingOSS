@@ -1,8 +1,9 @@
 package rs
 
 import (
-	"github.com/klauspost/reedsolomon"
 	"io"
+
+	"github.com/klauspost/reedsolomon"
 )
 
 type encoder struct {
@@ -38,6 +39,7 @@ func (e *encoder) Write(p []byte) (n int, err error) {
 	return len(p), nil
 
 }
+
 // 文件分片
 func (e *encoder) Flush() {
 	if len(e.cache) == 0 {
@@ -47,6 +49,7 @@ func (e *encoder) Flush() {
 	shards, _ := e.enc.Split(e.cache)
 	e.enc.Encode(shards)
 	for i := range shards {
+		//调用http patch方式
 		e.writers[i].Write(shards[i])
 
 	}

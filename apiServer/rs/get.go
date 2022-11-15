@@ -29,7 +29,6 @@ func NewRSGetStream(locateInfo map[int]string, dataServers []string, hash string
 			continue
 
 		}
-		// TODO 导致reader为空
 		reader, e := objectstream.NewGetStream(server, fmt.Sprintf("%s.%d", hash, i))
 		log.Println("reader222", reader)
 		if e == nil {

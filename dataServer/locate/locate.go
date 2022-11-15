@@ -57,6 +57,7 @@ func Del(hash string) {
 //		}
 //	}
 //
+
 // StartLocate 用于监听定位消息
 func StartLocate(url string) {
 	q := rabbitmq.New(conf.Conf.RabbitmqAddr)
@@ -86,14 +87,14 @@ func StartLocate(url string) {
 //			objects[hash] = 1
 //		}
 //	}
+
+// CollectObjects 先扫描一下当前数据服务器所有对象objects存到内存中
 func CollectObjects() {
 	files, _ := filepath.Glob(conf.Conf.Dir + "/objects/*")
-	// files, _ := filepath.Glob(conf.Conf.Dir + "/temp/*")
 	log.Println("files", files)
 	log.Println("files2222", len(files))
 	for i := range files {
 		log.Println("i", i)
-		// file := strings.Split(filepath.Base(files[i]), ".")
 		file := strings.Split(filepath.Base(files[i]), ".")
 		log.Println("file", file)
 		log.Println("len(file)", len(file))

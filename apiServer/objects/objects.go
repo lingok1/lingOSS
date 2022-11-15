@@ -61,7 +61,6 @@ http.HandleFunc:put get del
 //	}
 //
 
-// TODO
 func get(w http.ResponseWriter, r *http.Request) {
 	log.Println("r.URL.EscapedPath()", r.URL.EscapedPath())
 	log.Println("11", strings.Split(r.URL.EscapedPath(), "/"))
@@ -139,7 +138,6 @@ func GetStream(hash string, size int64) (*rs.RSGetStream, error) {
 		return nil, fmt.Errorf("object %s locate fail, result %v", hash, locateInfo)
 
 	}
-	// TODO dataServers
 	dataServers := make([]string, 0)
 	if len(locateInfo) == rs.ALL_SHARDS {
 		dataServers = heartbeat.ChooseRandomDataServers(rs.ALL_SHARDS-len(locateInfo), locateInfo)
@@ -153,7 +151,7 @@ func GetStream(hash string, size int64) (*rs.RSGetStream, error) {
 
 }
 
-// TODO GetHashFromHeader hash从哪里来的，前端算好传过来的？头部的信息是否一起hash
+// put hash是前端算好传过来的，先hash后base64
 func put(w http.ResponseWriter, r *http.Request) {
 	hash := utils.GetHashFromHeader(r.Header)
 	if hash == "" {
@@ -198,8 +196,7 @@ func put(w http.ResponseWriter, r *http.Request) {
 //
 //		return objectstream.NewTempPutStream(server, hash, size)
 //	}
-//
-// TODO NewRSPutStream
+
 func putStream(hash string, size int64) (*rs.RSPutStream, error) {
 	servers := heartbeat.ChooseRandomDataServers(rs.ALL_SHARDS, nil)
 	log.Println("servers", servers)
@@ -212,12 +209,11 @@ func putStream(hash string, size int64) (*rs.RSPutStream, error) {
 
 }
 
-// TODO 上传前如何获取文件的hash
 func storeObject(r io.Reader, hash string, size int64) (int, error) {
 	if locate.Exist(url.PathEscape(hash)) {
 		return http.StatusOK, nil
 	}
-	//调用封装的http写入流向发给detaserver的请求写入数据
+	//调用封装的http post方式写入流向发给detaserver的请求写入数据
 	stream, e := putStream(url.PathEscape(hash), size)
 	if e != nil {
 		return http.StatusServiceUnavailable, e
